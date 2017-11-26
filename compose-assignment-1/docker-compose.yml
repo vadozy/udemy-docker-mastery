@@ -1,13 +1,8 @@
-# create your drupal and postgres config here, based off the last assignment
-
 version: '3.1'
 
 services:  # containers. same as docker run
   my_drupal: # a friendly name. this is also DNS name inside network
-    image: custom-drupal
-    build:
-      context: .
-      dockerfile: drupal.Dockerfile
+    image: drupal
 #    command: # Optional, replace the default CMD specified by the image
     environment:
       POSTGRES_DB: postgres
@@ -20,16 +15,22 @@ services:  # containers. same as docker run
     volumes:
       - "/Users/vadim/Projects/Docker/tmp/drupal_modules:/var/www/html/modules"
       - "/Users/vadim/Projects/Docker/tmp/drupal_profiles:/var/www/html/profiles"
+      - "/Users/vadim/Projects/Docker/tmp/drupal_themes:/var/www/html/themes"
       - "/Users/vadim/Projects/Docker/tmp/drupal_sites:/var/www/html/sites"
-#      - "/Users/vadim/Projects/Docker/tmp/drupal_themes:/var/www/html/themes"
     links:
       - my_postgres:postgres
   my_postgres:
-    image: postgres:9.6
+    image: postgres
 #    command: # Optional, replace the default CMD specified by the image
     environment:
         POSTGRES_PASSWORD: t0ps3cret
     volumes:
       - "/Users/vadim/Projects/Docker/tmp/postgres:/var/lib/postgresql/data"
 
-# docker run --rm drupal:8.2 tar -cC /var/www/html/sites . | tar -xC /Users/vadim/Projects/Docker/tmp/drupal_sites
+
+#volumes: # Optional, same as docker volume create
+
+#networks: # Optional, same as docker network create
+
+
+
