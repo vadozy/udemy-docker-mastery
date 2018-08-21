@@ -1,11 +1,11 @@
 # NOTE: this example is taken from the default Dockerfile for the official nginx Docker Hub Repo
 # https://hub.docker.com/_/nginx/
-# NOTE: This file is slightly different then the video, because nginx versions have been updated 
+# NOTE: This file is slightly different than the video, because nginx versions have been updated 
 #       to match the latest standards from docker hub... but it's doing the same thing as the video
 #       describes
 FROM debian:stretch-slim
 # all images must have a FROM
-# usually from a minimal Linux distribution like debain or (even better) alpine
+# usually from a minimal Linux distribution like debian or (even better) alpine
 # if you truly want to start with an empty container, use FROM scratch
 
 ENV NGINX_VERSION 1.13.6-1~stretch
@@ -51,4 +51,4 @@ EXPOSE 80 443
 
 CMD ["nginx", "-g", "daemon off;"]
 # required: run this command when container is launched
-# only one CMD allowed, so if there are mulitple, last one wins
+# only one CMD allowed, so if there are multiple, last one wins
