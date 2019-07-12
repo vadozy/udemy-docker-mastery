@@ -1,12 +1,12 @@
 # Assignment: Compose For On-The-Fly Image Building and Multi-Container Testing
 
-Goal: This time imagine you're just wanting to learn Drupal's admin and GUI, or maybe you're a software tester and you need to test a new theme for Drupal. When configured properly, this will let you build a custom image and start everything with `docker compose up` including storing important db and config data in volumes so the site will remember your changes across Compose restarts.
+Goal: This time imagine you're just wanting to learn Drupal's admin and GUI, or maybe you're a software tester and you need to test a new theme for Drupal. When configured properly, this will let you build a custom image and start everything with `docker-compose up` including storing important db and config data in volumes so the site will remember your changes across Compose restarts.
 
 - Use the compose file you created in the last assignment (drupal and postgres) as a starting point.
 - Let's pin image version from Docker Hub this time. It's always a good idea to do that so a new major version doesn't surprise you.
 
 ## Dockerfile
-- First you need to build a custom Dockerfile in this directory, `FROM drupal:8.2`
+- First you need to build a custom Dockerfile in this directory, `FROM drupal:8.6` NOTE: if it fails to build, try the lastest 8 branch version with `FROM drupal:8`
 - Then RUN apt package manager command to install git: `apt-get update && apt-get install -y git`
 - Remember to cleanup after your apt install with `rm -rf /var/lib/apt/lists/*` and use `\` and `&&` properly. You can find examples of them in drupal official image. More on this below under Compose file.
 - Then change `WORKDIR /var/www/html/themes`
@@ -16,7 +16,7 @@ Goal: This time imagine you're just wanting to learn Drupal's admin and GUI, or 
 
 ## Compose File
 - We're going to build a custom image in this compose file for drupal service. Use Compose file from previous assignment for Drupal to start with, and we'll add to it, as well as change image name.
-- Rename image to `custom-drupal` as we want to make a new image based on the official `drupal:8.2`.
+- Rename image to `custom-drupal` as we want to make a new image based on the official `drupal:8.6`.
 - We want to build the default Dockerfile in this directory by adding `build: .` to the `drupal` service. When we add a build + image value to a compose service, it knows to use the image name to write to in our image cache, rather then pull from Docker Hub.
 - For the `postgres:9.6` service, you need the same password as in previous assignment, but also add a volume for `drupal-data:/var/lib/postgresql/data` so the database will persist across Compose restarts.
 
