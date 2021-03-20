@@ -1,5 +1,7 @@
 FROM node:alpine
 
+RUN apk add --update tini
+
 WORKDIR /app
 
 COPY ./ ./
@@ -24,4 +26,5 @@ EXPOSE 3000
 # - in the end you should be using FROM, RUN, WORKDIR, COPY, EXPOSE, and CMD commands
 
 
-CMD ["node", "./bin/www"]
+# CMD ["node", "./bin/www"]
+CMD ["/sbin/tini", "--", "node", "./bin/www"]

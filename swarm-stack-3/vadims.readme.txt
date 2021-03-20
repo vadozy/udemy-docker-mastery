@@ -1,0 +1,10 @@
+-- dev
+-- [ automatically merges docker-compose.yml and docker-compose.override.yml ]
+docker-compose up -d
+
+-- test
+docker-compose -f docker-compose.yml -f docker-compose.test.yml up -d
+
+--prod
+docker-compose -f docker-compose.yml -f docker-compose.prod.yml config > output.yml
+-- this does not work.yet ...-> docker stack deploy --compose-file output.yml prod_stack

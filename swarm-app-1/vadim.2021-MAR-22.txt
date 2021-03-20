@@ -1,0 +1,12 @@
+node1:~$ docker network create -d overlay frontend
+node1:~$ docker network create -d overlay backend
+
+node1:~$ docker service create --name db --network backend --mount type=volume,source=db-data,target=/var/lib/postgresql/data --replicas 1 -e POSTGRES_HOST_AUTH_METHOD=trust postgres:9.4
+
+node1:~$ docker service create --name worker --network backend --network frontend --replicas 1 bretfisher/examplevotingapp_worker:java
+
+node1:~$ docker service create --name redis --network frontend --replicas 1 redis:3.2
+
+node1:~$ docker service create --name result --network backend --replicas 1 -p 5001:80 bretfisher/examplevotingapp_result
+
+node1:~$ docker service create --name vote --network frontend --replicas 3 -p 80:80 bretfisher/examplevotingapp_vote
